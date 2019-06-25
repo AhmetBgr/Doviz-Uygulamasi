@@ -154,7 +154,6 @@ class Window(QWidget):
 
         hbox = QHBoxLayout()
         hbox.addLayout(vbox)
-        #hbox.addStretch()
         hbox.addLayout(vbox4)
 
         self.fromm = QLabel("")
