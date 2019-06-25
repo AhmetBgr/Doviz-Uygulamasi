@@ -3,7 +3,8 @@ from PyQt5.QtWidgets import *
 from PyQt5.QtGui import QPixmap,QIcon
 import requests
 
-url = "http://data.fixer.io/api/latest?access_key=8db3c19e544cbb13235fceb7f12d2171"
+accesskey = "" #paste your fixer.io acces key
+url = "http://data.fixer.io/api/latest?access_key=" + accesskey
 
 response = requests.get(url)
 infos = response.json()
@@ -14,6 +15,7 @@ class Window(QWidget):
 
         super().__init__()
         self.init_ui()
+        self.setSizePolicy(QSizePolicy.Minimum, QSizePolicy.Expanding)
 
     def init_ui(self):
 
@@ -23,8 +25,9 @@ class Window(QWidget):
         self.bilgi = QLabel("")
         self.button = QPushButton("Kısaltma bilgilerini göster/gizle")
         self.button.setCheckable(True)
-
+        
         self.combo1 = QComboBox()
+        self.combo1.setFixedWidth(50)
         self.combo1.addItem("From")
         self.combo1.addItem("TRY")
         self.combo1.addItem("USD")
@@ -39,6 +42,7 @@ class Window(QWidget):
         self.combo1.addItem("NZD")
 
         self.combo2 = QComboBox()
+        self.combo2.setFixedWidth(50)
         self.combo2.addItem("To")
         self.combo2.addItem("USD")
         self.combo2.addItem("EUR")
@@ -53,34 +57,34 @@ class Window(QWidget):
         self.combo2.addItem("NZD")
 
         self.flag = QLabel()
-        self.flag.setPixmap(QPixmap("images\-usd.png"))
+        self.flag.setPixmap(QPixmap("images/usd.png"))
 
         self.flag2 = QLabel()
-        self.flag2.setPixmap(QPixmap("images\eu.png"))
+        self.flag2.setPixmap(QPixmap("images/eu.png"))
 
         self.flag3 = QLabel()
-        self.flag3.setPixmap(QPixmap("images\jpy.png"))
+        self.flag3.setPixmap(QPixmap("images/jpy.png"))
 
         self.flag4 = QLabel()
-        self.flag4.setPixmap(QPixmap("images\gbp.png"))
+        self.flag4.setPixmap(QPixmap("images/gbp.png"))
 
         self.flag5 = QLabel()
-        self.flag5.setPixmap(QPixmap("images\chf.png"))
+        self.flag5.setPixmap(QPixmap("images/chf.png"))
 
         self.flag6 = QLabel()
-        self.flag6.setPixmap(QPixmap("images\cad.png"))
+        self.flag6.setPixmap(QPixmap("images/cad.png"))
 
         self.flag7 = QLabel()
-        self.flag7.setPixmap(QPixmap("images\-aud.png"))
+        self.flag7.setPixmap(QPixmap("images/aud.png"))
 
         self.flag8 = QLabel()
-        self.flag8.setPixmap(QPixmap("images\cny.png"))
+        self.flag8.setPixmap(QPixmap("images/cny.png"))
 
         self.flag9 = QLabel()
-        self.flag9.setPixmap(QPixmap("images\-rub.png"))
+        self.flag9.setPixmap(QPixmap("images/rub.png"))
 
         self.flag10 = QLabel()
-        self.flag10.setPixmap(QPixmap("images\-nzd.png"))
+        self.flag10.setPixmap(QPixmap("images/nzd.png"))
 
         self.table = QTableWidget()
         self.table.setRowCount(10)
@@ -88,45 +92,43 @@ class Window(QWidget):
 
         self.table.setCellWidget(0,0, self.flag)
         self.table.setItem(0, 0, QTableWidgetItem("      USD/TRY"))
-        self.table.setItem(0, 1, QTableWidgetItem("{}".format(infos["rates"]["TRY"]/infos["rates"]["USD"])))
+        self.table.setItem(0, 1, QTableWidgetItem("{}".format(('%.4f' %(infos["rates"]["TRY"]/infos["rates"]["USD"])).replace(".",","))))
 
         self.table.setCellWidget(1, 0, self.flag2)
         self.table.setItem(1, 0, QTableWidgetItem("      EUR/TRY"))
-        self.table.setItem(1, 1, QTableWidgetItem("{}".format(infos["rates"]["TRY"]/infos["rates"]["EUR"])))
+        self.table.setItem(1, 1, QTableWidgetItem("{}".format(('%.4f' %(infos["rates"]["TRY"]/infos["rates"]["EUR"])).replace(".",","))))
 
-        self.table.setCellWidget(2, 0, self.flag4)
+        self.table.setCellWidget(2, 0, self.flag4,)
         self.table.setItem(2, 0, QTableWidgetItem("      GBP/TRY"))
-        self.table.setItem(2, 1, QTableWidgetItem("{}".format(infos["rates"]["TRY"]/infos["rates"]["GBP"])))
+        self.table.setItem(2, 1, QTableWidgetItem("{}".format(('%.4f' %(infos["rates"]["TRY"]/infos["rates"]["GBP"])).replace(".",","))))
 
         self.table.setCellWidget(3, 0, self.flag3)
         self.table.setItem(3, 0, QTableWidgetItem("      JPY/TRY"))
-        self.table.setItem(3, 1, QTableWidgetItem("{}".format(infos["rates"]["TRY"]/infos["rates"]["JPY"])))
+        self.table.setItem(3, 1, QTableWidgetItem("{}".format(('%.4f' %(infos["rates"]["TRY"]/infos["rates"]["JPY"])).replace(".",","))))
 
         self.table.setCellWidget(4, 0, self.flag5)
         self.table.setItem(4, 0, QTableWidgetItem("      CHF/TRY"))
-        self.table.setItem(4, 1, QTableWidgetItem("{}".format(infos["rates"]["TRY"]/infos["rates"]["CHF"])))
+        self.table.setItem(4, 1, QTableWidgetItem("{}".format(('%.4f' %(infos["rates"]["TRY"]/infos["rates"]["CHF"])).replace(".",","))))
 
         self.table.setCellWidget(5, 0, self.flag6)
         self.table.setItem(5, 0, QTableWidgetItem("      CAD/TRY"))
-        self.table.setItem(5, 1, QTableWidgetItem("{}".format(infos["rates"]["TRY"]/infos["rates"]["CAD"])))
+        self.table.setItem(5, 1, QTableWidgetItem("{}".format(('%.4f' %(infos["rates"]["TRY"]/infos["rates"]["CAD"])).replace(".",","))))
 
         self.table.setCellWidget(6, 0, self.flag7)
         self.table.setItem(6, 0, QTableWidgetItem("      AUD/TRY"))
-        self.table.setItem(6, 1, QTableWidgetItem("{}".format(infos["rates"]["TRY"]/infos["rates"]["AUD"])))
+        self.table.setItem(6, 1, QTableWidgetItem("{}".format(('%.4f' %(infos["rates"]["TRY"]/infos["rates"]["AUD"])).replace(".",","))))
 
         self.table.setCellWidget(7, 0, self.flag8)
         self.table.setItem(7, 0, QTableWidgetItem("      CNY/TRY"))
-        self.table.setItem(7, 1, QTableWidgetItem("{}".format(infos["rates"]["TRY"]/infos["rates"]["CNY"])))
+        self.table.setItem(7, 1, QTableWidgetItem("{}".format(('%.4f' %(infos["rates"]["TRY"]/infos["rates"]["CNY"])).replace(".",","))))
 
         self.table.setCellWidget(8, 0, self.flag9)
         self.table.setItem(8, 0, QTableWidgetItem("      RUB/TRY"))
-        self.table.setItem(8, 1, QTableWidgetItem("{}".format(infos["rates"]["TRY"]/infos["rates"]["RUB"])))
+        self.table.setItem(8, 1, QTableWidgetItem("{}".format(('%.4f' %(infos["rates"]["TRY"]/infos["rates"]["RUB"])).replace(".",","))))
 
         self.table.setCellWidget(9, 0, self.flag10)
         self.table.setItem(9, 0, QTableWidgetItem("      NZD/TRY"))
-        self.table.setItem(9, 1, QTableWidgetItem("{}".format(infos["rates"]["TRY"]/infos["rates"]["NZD"])))
-
-        self.table.setColumnWidth(1,135)
+        self.table.setItem(9, 1, QTableWidgetItem("{}".format(('%.4f' %(infos["rates"]["TRY"]/infos["rates"]["NZD"])).replace(".",","))))
 
         vbox = QVBoxLayout()
         vbox.addWidget(self.table)
@@ -152,6 +154,7 @@ class Window(QWidget):
 
         hbox = QHBoxLayout()
         hbox.addLayout(vbox)
+        #hbox.addStretch()
         hbox.addLayout(vbox4)
 
         self.fromm = QLabel("")
@@ -202,6 +205,5 @@ if __name__ == "__main__":
     app = QApplication(sys.argv)
     app.setStyle('Fusion')
     window = Window()
-    window.setGeometry(500,100,470,345)
+    window.setGeometry(500,100,400,345)
     sys.exit(app.exec_())
-
