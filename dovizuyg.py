@@ -15,7 +15,6 @@ class Window(QWidget):
 
         super().__init__()
         self.init_ui()
-        self.setSizePolicy(QSizePolicy.Minimum, QSizePolicy.Expanding)
 
     def init_ui(self):
 
